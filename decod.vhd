@@ -2,7 +2,7 @@
 -- Entrada: bcd (vetor de 4 posicoes);
 -- Saida: HEX (vetor de 7 posicoes)
 -- Autores: Joao Vitor e Marcos Meira
--- Modificado por: Calebe Oliveira e Andressa Theotônio
+-- Modificado por: Calebe Oliveira e Andressa TheotÃ´nio
 -- 29/07/2017
  
 library ieee;
@@ -16,7 +16,7 @@ end decod;
 architecture arquitetura of decod is
 begin
  
-    with sw select HEX0 <=
+    with SW select HEX0 <=
         NOT "1111110" when "0000",
         NOT "0110000" when "0001",
         NOT "1101101" when "0010",
