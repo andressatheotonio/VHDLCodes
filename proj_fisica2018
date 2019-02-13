@@ -1,0 +1,149 @@
+#include <SoftwareSerial.h>
+
+#define D1 2 // 1.20m
+#define LDR1 A1
+#define D2 3 // 1.00m
+#define LDR2 A2
+#define D3 4 // 0.80m
+#define LDR3 A3
+#define D4 5 // 0.60m
+#define LDR4 A4
+#define D5 6 // 0.40m
+#define LDR5 A5
+#define button 11// Btn de parada
+#define RX 8
+#define TX 9
+#define LUMIN 800
+
+SoftwareSerial BtSerial(RX,TX);
+
+int luz1,luz2,luz3,luz4,luz5;// variaveis que irao receber o valor analogico indicado pelos LDRS;
+String dist, data = ""; // Distancia recebida pelo app e string de varredura;
+double veloc; // Variável a ser calculada;
+int inicio, fim;       // Tempo inicial( momento em que ocorre a variacao de luz no LDR)-- Tempo final(momento em que o botão é acionado);
+int tem_total;        // variavel que recebe o tempo realizado efetivamente no percurso( tempo final - inicial);
+bool flag = false;
+
+void setup() {
+  pinMode(button,INPUT_PULLUP);    // push_button
+  pinMode (D1, OUTPUT);           // Diodo 1
+  pinMode (D2, OUTPUT);          // Diodo 2
+  pinMode (D3, OUTPUT);         // Diodo 3
+  pinMode (D4, OUTPUT);        // Diodo 4
+  pinMode (D5, OUTPUT);       // Diodo 5
+  /*pinMode (LDR1,INPUT);
+  pinMode (LDR2,INPUT);
+  pinMode (LDR3,INPUT);
+  pinMode (LDR4,INPUT);
+  pinMode (LDR5,INPUT);*/
+  digitalWrite(D1, HIGH);
+  digitalWrite(D2, HIGH);
+  digitalWrite(D3, HIGH);
+  digitalWrite(D4, HIGH);
+  digitalWrite(D5, HIGH);
+  Serial.begin(9600);
+  BtSerial.begin(9600); 
+  delay(2000);
+}
+
+void loop() {
+  /*Serial.println("LDR1 = " + String(analogRead(LDR1)));
+  Serial.println("LDR2 = " + String(analogRead(LDR2)));
+  Serial.println("LDR3 = " + String(analogRead(LDR3)));
+  Serial.println("LDR4 = " + String(analogRead(LDR4)));
+  Serial.println("LDR5 = " + String(analogRead(LDR5)));*/
+  while(BtSerial.available() > 0) {
+    data += char(BtSerial.read());
+  }
+ 
+
+  if(data != "" and data != "\n"){
+    dist = data;
+  }
+  Serial.println(data);
+  if(dist == "1.20"){
+    digitalWrite (D1, HIGH);
+    digitalWrite (D2, LOW);
+    digitalWrite (D3, LOW);
+    digitalWrite (D4, LOW);
+    digitalWrite (D5, LOW);
+    luz1 = analogRead(LDR1);
+  }
+
+  if(dist == "1.00"){
+    digitalWrite (D1, LOW);
+    digitalWrite (D2, HIGH);
+    digitalWrite (D3, LOW);
+    digitalWrite (D4, LOW);
+    digitalWrite (D5, LOW);
+    luz2 = analogRead(LDR2);
+  }
+
+  if(dist == "0.80"){
+    digitalWrite (D1, LOW);
+    digitalWrite (D2, LOW);
+    digitalWrite (D3, HIGH);
+    digitalWrite (D4, LOW);
+    digitalWrite (D5, LOW);
+    
+    luz3 = analogRead(LDR3);
+  }
+
+  if(dist == "0.60"){
+    digitalWrite (D1, LOW);
+    digitalWrite (D2, LOW);
+    digitalWrite (D3, LOW);
+    digitalWrite (D4, HIGH);
+    digitalWrite (D5, LOW);
+    luz4 = analogRead(LDR4);
+  }
+  
+  if(dist == "0.40"){
+    digitalWrite (D1, LOW);
+    digitalWrite (D2, LOW);
+    digitalWrite (D3, LOW);
+    digitalWrite (D4, LOW);
+    digitalWrite (D5, HIGH);
+    luz5 = analogRead(LDR5);
+  }
+  
+  int time = millis(); // inicia a contagem do tempo
+
+  if(luz1 < LUMIN and dist == "1.20" and !flag){
+     inicio = time;     // tempo inicial para 1.20
+  }
+
+  if(luz2 < LUMIN and dist == "1.00" and !flag){
+     inicio = time;     // tempo inicial para 1.00
+  }
+
+  if(luz3 < LUMIN and dist == "0.80" and !flag){
+     inicio = time;     // tempo inicial para 0.80
+  }
+
+  if(luz4 < LUMIN and dist == "0.60" and !flag){
+     inicio = time;     // tempo inicial para 0.60
+  }
+
+  if(luz5 < LUMIN and dist == "0.40" and !flag){
+     inicio = time;     // tempo inicial para 0.40
+  }
+  if(digitalRead(button) == HIGH and !flag){    // botao pressionado
+                             // tempo final
+    flag = true;
+  }
+  if(flag)
+    fim=time;
+
+  tem_total = fim - inicio; // tempo do diodo ate o botão
+  
+  BtSerial.println(tem_total); // enviando o tempo total para o HC-06
+  Serial.println(tem_total);
+  veloc = dist.toDouble()/(tem_total/1000.0); // velocidade calculada
+  flag = false; 
+  Serial.print("Velocidade:"); // Debug
+  Serial.println(veloc);
+  data = "";  
+  
+  delay(1000);
+}
