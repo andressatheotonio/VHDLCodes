@@ -1,2 +1,2 @@
 # VHDLCodes
-arquivos .sof dos códigos trabalhados no minicurso de VHDL.
+arquivos .vhd dos códigos trabalhados no minicurso de VHDL e na cadeira de Sistemas Digitais.
