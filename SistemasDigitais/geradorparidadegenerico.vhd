@@ -2,13 +2,13 @@
 -- GERADOR DE PARIDADE 4 BITS
 -- FEITO POR: ANDRESSA THEOTÔNIO
 
-entity geradorparidade is
+entity geradorparidadegenerico is
 	generic(n: in integer := 5);
 	port (input: in bit_vector (n-1 downto 0);
 			output: out bit);
-end geradorparidade;
+end geradorparidadegenerico;
 
-architecture gerador of geradorparidade is
+architecture gerador of geradorparidadegenerico is
 
 	signal s: bit_vector (n downto 0);
 
