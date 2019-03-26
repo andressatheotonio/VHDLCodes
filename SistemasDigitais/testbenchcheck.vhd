@@ -3,7 +3,7 @@ end testbenchcheck;
 
 architecture test of testbenchcheck is
 
-component geradorparidade is
+component geradorparidadegenerico is
 	generic(n: in integer := 5);
 	port (input: in bit_vector (n-1 downto 0);
 			output: out bit);
@@ -15,7 +15,7 @@ signal output: bit;
 
 begin
 
-x: geradorparidade port map(input,output);
+x: geradorparidadegenerico port map(input,output);
 
 input <= "00000",
 					   "01010" after 10 ns,
