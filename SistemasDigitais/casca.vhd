@@ -1,6 +1,7 @@
 -- SISTEMAS DIGITAIS 20/03/2019
 -- SIGNALS
 -- FEITO POR: ANDRESSA THEOTÔNIO
+-- PLACA: EP2C20F484C7
 
 entity casca is
 port(a,b,c: in bit;
