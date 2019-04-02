@@ -1,0 +1,38 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity testbench is
+end testbench;
+
+architecture test of testbench is
+
+component addnbits is
+generic(n: integer := 8);
+port(a,b: in std_logic_vector(n-1 downto 0);
+	  s: out std_logic_vector(n-1 downto 0);
+	  cin: in std_logic;
+	  cout: out std_logic);
+end component;
+
+signal a,b,s: std_logic_vector(7 downto 0);
+signal cin, cout: std_logic;
+
+begin
+
+x: addnbits port map(a, b, s, cin, cout);
+
+a <= "00100001",
+	  "00001111" after 10 ns,
+	  "11110000" after 20 ns,
+	  "00011000" after 30 ns,
+	  "00000001" after 40 ns,
+	  "00000000" after 50 ns;
+	  
+b <= "00111000",
+	  "00000011" after 10 ns,
+	  "11000000" after 20 ns,
+	  "00011100" after 30 ns,
+	  "01111111" after 40 ns,
+	  "00000000" after 50 ns;
+	  
+end test;
