@@ -6,5 +6,5 @@ end mux;
 architecture comportamental of mux is 
 begin
 
-s <= ((not c) and a) or (c and b);
+s <= a when c = '0' else b;
 end comportamental;
