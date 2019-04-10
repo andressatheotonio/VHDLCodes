@@ -1,3 +1,7 @@
+--TESTBENCH PARA UM CARRY LOOK AHEAD (CORRIGIR)
+--FEITO POR ANDRESSA THETONIO
+--SISTEMAS DIGITAIS, 09/04/2019
+
 library ieee;
 use ieee.std_logic_1164.all;
 
@@ -26,6 +30,12 @@ signal inB: std_logic_vector(n-1 downto 0);
 begin
 
 adder: lookahead port map(cin, inA, inB, s, cout, p, g);
+
+cin <= "0",
+					"1" after 20 ns,
+					"0" after 40 ns,
+					"1" after 60 ns,
+					"0" after 80 ns;
 
 inA <= "0000",
 					"0101" after 20 ns,
