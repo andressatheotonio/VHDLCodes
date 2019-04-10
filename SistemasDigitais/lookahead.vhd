@@ -1,4 +1,4 @@
---CODIGO DE UM SOMADOR CARRY LOOK AHEAD PARA CORREÇÃO
+--CODIGO DE UM SOMADOR CARRY LOOK AHEAD  (CORRIGIDO)
 --FEITO POR: ANDRESSA THEOTÔNIO
 --03/04/19
 
@@ -9,8 +9,8 @@ entity lookahead is
 generic(n: integer := 4);
 port(cin: in std_logic;
 	  inA,inB: in std_logic_vector(n-1 downto 0);
-	  s: out std_logic_vector(n-1 downto 0)
-    	  cout,p,g: out std_logic);
+	  s: out std_logic_vector(n-1 downto 0);
+     	  cout,p,g: out std_logic);
 end lookahead;
 
 architecture lahead of lookahead is
@@ -28,7 +28,7 @@ begin
 
 c(0) <= gc(0) or (pc(0) and cin);
 c(1) <= gc(1) or (pc(1) and gc(0)) or (pc(1) and pc(0) and cin);
-c(2) <= gc(2) or (pc(2) and gc(1)) or (pc(2) and pc(1) and gc(0)) or (pc(2) and pc(1) and pc(0) and cin));
+c(2) <= gc(2) or (pc(2) and gc(1)) or (pc(2) and pc(1) and gc(0)) or (pc(2) and pc(1) and pc(0) and cin);
 c(3) <= gc(3) or (pc(3) and gc(2)) or (pc(3) and pc(2) and gc(1)) or (pc(3) and pc(2) and pc(1) and gc(0)) or (pc(3) and pc(2) and pc(1) and pc(0) and cin);
 
 g <= gc(3) or (pc(3) and gc(2)) or (pc(3) and pc(2) and gc(1)) or (pc(3) and pc(2) and pc(1) and gc(0));
