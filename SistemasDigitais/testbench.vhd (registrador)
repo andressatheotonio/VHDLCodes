@@ -1,0 +1,39 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity testbench is
+end testbench;
+
+architecture test of testbench is
+
+component registrador is
+	port(entradad,clk: in std_logic;
+		  saidad: out std_logic_vector(7 downto 0));
+end component;
+
+signal entradad: std_logic := '0';
+signal clk: std_logic := '1';
+signal saidad: std_logic_vector(7 downto 0);
+signal testinho: std_logic_vector(7 downto 0) := "10110111";
+
+begin
+
+x: registrador port map (entradad,clk,saidad);
+
+process
+begin
+
+for i in 0 to 7 loop
+	clk <= '1';
+	entradad <= testinho(i);
+	wait for 10 ns;
+	clk <= '0';
+	wait for 10 ns;
+end loop;
+
+wait;
+
+end process;
+
+
+end test;
