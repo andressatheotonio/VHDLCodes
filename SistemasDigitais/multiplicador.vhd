@@ -1,4 +1,4 @@
-- Data: 30/04/2019
+-- Data: 30/04/2019
 -- Sistemas Digitais
 -- Multiplicador
 
