@@ -6,14 +6,14 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 
-entity mult is 
+entity multiplicador is 
 generic (m:integer :=4); -- qtd de bits das entradas do multiplicador
 port(a,b:in std_logic_vector(m-1 downto 0); -- entradas do multiplicador
 	  s:out std_logic_vector((2*m)-1 downto 0)); -- saída do multiplicador, o dobro de bits
-end mult;
+end multiplicador;
 
 
-architecture op of mult is 
+architecture op of multiplicador is 
 
 component adder is -- adicionando o somador
 generic(n: integer := m); -- qtd de bits das entradas do multiplicador, com coerência
