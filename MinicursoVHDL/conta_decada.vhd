@@ -1,8 +1,8 @@
--- Contador de dÈcada
+-- Contador de d√©cada
 -- Entradas: clk (clock), reset;
--- SaÌda: q (Vetor 4 posiÁıes tipo BCD)
--- Autores: Jo„o Vitor e Marcos Meira
--- Modificado por: Andressa TheotÙnio e Calebe Oliveira
+-- Sa√≠da: q (Vetor 4 posi√ß√µes tipo BCD)
+-- Autores: Jo√£o Vitor e Marcos Meira
+-- Modificado por: Andressa Theot√¥nio e Calebe Oliveira
 -- 02/08/2017
  
 library IEEE;                                                        
@@ -20,7 +20,7 @@ begin
     process(clk,reset)                                  
     variable qtemp: std_logic_vector(3 downto 0);  
     begin
--- para resetar quando apertar o bot„o, alteramos a lÛgica do reset
+-- para resetar quando apertar o bot√£o, alteramos a l√≥gica do reset
         if reset='0' then
         qtemp:="0000";                                            
        
