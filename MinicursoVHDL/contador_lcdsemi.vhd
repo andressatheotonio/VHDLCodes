@@ -6,13 +6,13 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
  
-entity contador_lcd is
+entity contador_lcdsemi is
 port (in_enable: in std_logic;
         LCD_RW, LCD_EN, LCD_RS, LCD_ON, LCD_BLON: out std_logic;
         LCD_DATA: out std_logic_vector (7 downto 0));
-end contador_lcd;
+end contador_lcdsemi;
  
-architecture arquitetura of contador_lcd is
+architecture arquitetura of contador_lcdsemi is
 begin
 lcd_BLON <= '1';
 lcd_RW <= '0';
